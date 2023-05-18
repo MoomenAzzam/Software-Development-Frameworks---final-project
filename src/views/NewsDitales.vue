@@ -3,61 +3,23 @@
     <SideBar />
     <v-container>
       <v-row>
-        <v-col cols="9">
+        <v-col cols="12">
           <div class="py-3">
             <v-card class="" :elevation="20">
               <v-img
                 class="align-end text-white"
-                :src="`https://picsum.photos/500/300?image=${3}`"
-                :lazy-src="`https://picsum.photos/10/6?image=${40}`"
+                :src="data.image"
+                :lazy-src="data.image"
                 cover
               >
-                <v-card-title
-                  >Main Title Main Title Main Title Main Title Main Title Main
-                  Title Main Title Main Title Main Title Main Title
+                <v-card-title class="bg-grey-lighten-2"
+                  >{{ data.title }}
                 </v-card-title>
               </v-img>
 
-              <v-card-subtitle class="pt-4">6-3-2023 </v-card-subtitle>
-
               <v-card-text class="pa-5">
-                <h2 class="py-5">secundery title</h2>
                 <p>
-                  Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                  Molestias, consequatur! Voluptatum veniam mollitia, doloremque
-                  aspernatur officia quasi, adipisci pariatur esse unde sint
-                  nobis, accusamus temporibus nemo corporis rerum ea
-                  accusantium. Lorem ipsum dolor sit, amet consectetur
-                  adipisicing elit. Molestias, consequatur! Voluptatum veniam
-                  mollitia, doloremque aspernatur officia quasi, adipisci
-                  accusantium. Lorem ipsum dolor sit, amet consectetur
-                  adipisicing elit. Molestias, consequatur! Voluptatum veniam
-                  mollitia, doloremque aspernatur officia quasi, adipisci
-                  pariatur esse unde sint nobis, accusamus temporibus nemo
-                  corporis rerum ea accusantium.
-                </p>
-                <p>
-                  Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                  Molestias, consequatur! Voluptatum veniam mollitia, doloremque
-                  aspernatur officia quasi, adipisci pariatur esse unde sint
-                  Molestias, consequatur! Voluptatum veniam mollitia, doloremque
-                  aspernatur officia quasi, adipisci pariatur esse unde sint
-                  Molestias, consequatur! Voluptatum veniam mollitia, doloremque
-                  aspernatur officia quasi, adipisci pariatur esse unde sint
-                  nobis, accusamus temporibus nemo corporis rerum ea
-                  accusantium.
-                </p>
-                <p>
-                  Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                  Molestias, consequatur! Voluptatum veniam mollitia, doloremque
-                  aspernatur officia quasi, adipisci pariatur esse unde sint
-                  nobis, accusamus temporibus nemo corporis rerum ea Molestias,
-                  consequatur! Voluptatum veniam mollitia, doloremque aspernatur
-                  officia quasi, adipisci pariatur esse unde sint nobis,
-                  accusamus temporibus nemo corporis rerum ea Molestias,
-                  consequatur! Voluptatum veniam mollitia, doloremque aspernatur
-                  officia quasi, adipisci pariatur esse unde sint nobis,
-                  accusamus temporibus nemo corporis rerum ea accusantium.
+                  {{ data.data }}
                 </p>
               </v-card-text>
             </v-card>
@@ -70,11 +32,30 @@
 
 <script>
 import SideBar from "@/components/SideBar.vue";
+import axios from "axios";
 
 export default {
   name: "NewsDitales",
+  data() {
+    return {
+      data: "",
+    };
+  },
   components: {
     SideBar,
+  },
+  async mounted() {
+    try {
+      let result = await axios.get(
+        `http://localhost:8000/getDatadetails?url=${this.$route.params.newsLink}`
+      );
+      if (result.status == 201) {
+        console.log(result.data);
+        this.data = result.data;
+      }
+    } catch (error) {
+      console.log(error);
+    }
   },
 };
 </script>

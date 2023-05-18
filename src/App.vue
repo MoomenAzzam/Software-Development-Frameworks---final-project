@@ -8,16 +8,13 @@
 </template>
 
 <script>
-// import SideBar from "../src/components/SideBar.vue";
-
 export default {
   name: "App",
-
-  data: () => ({
-    //
-  }),
-  // components: {
-  //   SideBar,
-  // },
 };
 </script>
+<style>
+html,
+body {
+  direction: rtl;
+}
+</style>

@@ -16,7 +16,7 @@
           title="News"
           value="color"
           @click="isWithColor"
-          to="/"
+          to="/home"
         ></v-list-item>
         <v-list-item
           prepend-icon=" mdi-account"

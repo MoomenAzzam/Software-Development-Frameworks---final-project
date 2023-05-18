@@ -7,7 +7,7 @@ import NewsDitales from "../views/NewsDitales.vue";
 
 const routes = [
   {
-    path: "/",
+    path: "/home",
     name: "news",
     component: news,
   },
@@ -27,18 +27,9 @@ const routes = [
     component: SignUp,
   },
   {
-    path: "/NewsDitales",
+    path: "/NewsDitales/:newsLink",
     name: "NewsDitales",
     component: NewsDitales,
-  },
-  {
-    path: "/about",
-    name: "about",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/AboutView.vue"),
   },
 ];
 
@@ -48,3 +39,8 @@ const router = createRouter({
 });
 
 export default router;
+// {
+//   path: "/:catchAll(.*)",
+//   name: "news",
+//   component: news,
+// },
