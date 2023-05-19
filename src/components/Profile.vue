@@ -1,7 +1,12 @@
 <template>
   <div class="main">
     <SideBar />
-    <v-btn class="bg-red logout" type="button" variant="outlined">
+    <v-btn
+      class="bg-red logout"
+      type="button"
+      variant="outlined"
+      @click="logout()"
+    >
       logout
     </v-btn>
     <div
@@ -118,6 +123,10 @@ export default {
     SideBar,
   },
   methods: {
+    logout() {
+      localStorage.clear();
+      this.$router.push({ name: "SignIn" });
+    },
     enableInput() {
       this.isInputEnabled = true;
       this.buttonText = "Save";
@@ -159,7 +168,7 @@ export default {
     if (!this.userId) {
       this.$router.push({ name: "SignIn" });
     }
-    // **************** get data****************
+    // **************** get user data****************
     const result = await axios.get(
       `http://localhost:8000/users/profile/${this.userId}`
     );
@@ -169,6 +178,7 @@ export default {
       this.name = data.name;
       this.email = data.email;
       this.phone = data.phone;
+      this.favorite = data.favorite.split(",");
     }
   },
 };

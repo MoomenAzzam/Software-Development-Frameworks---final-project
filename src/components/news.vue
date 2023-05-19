@@ -52,7 +52,7 @@ export default {
   data() {
     return {
       listOfNews: {},
-      category: ["رياضة", "جريمة", "مجتمع"],
+      category: [],
       data: {},
       userId: "",
     };
@@ -70,16 +70,19 @@ export default {
 
     if (result.status == 201) {
       this.listOfNews = result.data;
-      // const arr = Object.entries(this.listOfNews);
-      // console.log(arr["رياضة"]);
-      // arr.forEach((element) => {
-      //   // console.log(element["جريمة"]);
-      //   // if (element[0].includes(this.category)) {
-      //   //   console.log(element);
-      //   // }
-      // });
+      console.log(this.listOfNews);
     } else {
       console.log("no data");
+    }
+
+    result = await axios.get(
+      `http://localhost:8000/users/profile/${this.userId}`
+    );
+    if (result.status) {
+      const data = result.data.data;
+      console.log(data.favorite);
+      this.category = data.favorite.split(",");
+      console.log(this.category);
     }
   },
 };
